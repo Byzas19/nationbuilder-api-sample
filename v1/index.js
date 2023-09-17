@@ -30,7 +30,7 @@ export const createDonation = async (nation_slug, access_token) => {
     },
   };
 
-  console.log("Attempting to create new donation: " + JSON.stringify(donation));
+  console.log("Attempting to create new donation");
 
   try {
     const response = await axios.post(
@@ -44,15 +44,13 @@ export const createDonation = async (nation_slug, access_token) => {
       }
     );
     if (response.status == 200) {
-      console.log("Response: " + JSON.stringify(response.data));
+      console.log(`New donation created for ${firstName} ${lastName}`);
       return true;
     }
   } catch (error) {
-    console.log(
-      `status ${error.response.status} - ${error.response.statusText}`
-    );
     console.log(error.response.data);
   }
+  console.log(`status ${error.response.status} - ${error.response.statusText}`);
   return false;
 };
 
@@ -68,7 +66,7 @@ export const getDonations = async (nation_slug, access_token) => {
       }
     );
     if (response.status == 200) {
-      return response.data;
+      return response.data.results;
     }
   } catch (error) {
     console.log(
